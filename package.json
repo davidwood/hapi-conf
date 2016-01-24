@@ -1,0 +1,41 @@
+{
+  "name": "hapi-env",
+  "version": "1.0.0",
+  "description": "Load and expose environment variables in hapi",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "NODE_ENV=test istanbul test _mocha -- --check-leaks"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davidwood/hapi-env.git"
+  },
+  "keywords": [
+    "hapi",
+    "env",
+    "environment",
+    "config",
+    "dotenv"
+  ],
+  "author": "David Wood <bitprobe@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidwood/hapi-env/issues"
+  },
+  "homepage": "https://github.com/davidwood/hapi-env#readme",
+  "dependencies": {
+    "dotenv": "^1.2.0",
+    "filter-env": "^1.1.0",
+    "lodash": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^3.1.0",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.3.4"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  }
+}
