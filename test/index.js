@@ -12,7 +12,7 @@ const hapiConf = require('../');
 /**
  * Constants
  */
-const NOOP = () => {};
+const NOOP = () => {}; // eslint-disable-line
 const ENV_PATH = path.join(__dirname, 'fixtures', 'env.txt');
 
 describe('hapiConf(server, validate, [options])', () => {
@@ -213,9 +213,7 @@ describe('hapiConf(server, validate, [options])', () => {
         done();
       };
       const pattern = /^test_/i;
-      const format = (key) => {
-        return _.camelCase(key.replace(pattern, ''));
-      };
+      const format = (key) => _.camelCase(key.replace(pattern, ''));
       hapiConf({ ext: NOOP, method }, pattern, { format });
     });
     it('should return undefined if the configuration value if not defined', (done) => {
