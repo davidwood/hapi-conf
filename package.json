@@ -1,5 +1,5 @@
 {
-  "name": "hapi-env",
+  "name": "hapi-conf",
   "version": "1.0.0",
   "description": "Load and expose environment variables in hapi",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/davidwood/hapi-env.git"
+    "url": "git://github.com/davidwood/hapi-conf.git"
   },
   "keywords": [
     "hapi",
@@ -21,9 +21,9 @@
   "author": "David Wood <bitprobe@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/davidwood/hapi-env/issues"
+    "url": "https://github.com/davidwood/hapi-conf/issues"
   },
-  "homepage": "https://github.com/davidwood/hapi-env#readme",
+  "homepage": "https://github.com/davidwood/hapi-conf#readme",
   "dependencies": {
     "dotenv": "^2.0.0",
     "filter-env": "^1.1.0",
