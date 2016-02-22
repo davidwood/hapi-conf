@@ -32,8 +32,10 @@ module.exports = (server, validate, options) => {
     }
   }
   server.method('getConfig', (key) => {
+    let value;
     if (_.isString(key)) {
-      return env[key];
+      value = env[key];
     }
+    return value;
   });
 };
