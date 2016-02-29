@@ -1,6 +1,6 @@
 {
   "name": "hapi-conf",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Load and expose environment variables in hapi",
   "main": "index.js",
   "scripts": {

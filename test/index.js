@@ -8,6 +8,8 @@ const fs = require('fs');
 const assert = require('assert');
 const _ = require('lodash');
 const hapiConf = require('../');
+const load = require('../lib/load-env');
+const expose = require('../lib/expose-config');
 
 /**
  * Constants
@@ -29,6 +31,11 @@ describe('hapiConf(server, validate, [options])', () => {
 
   it('should export a function', () => {
     assert.strictEqual(typeof hapiConf === 'function', true);
+  });
+
+  it('should export the load and expose functions', () => {
+    assert.strictEqual(hapiConf.load, load);
+    assert.strictEqual(hapiConf.expose, expose);
   });
 
   it('should throw an error if the Hapi server is invalid', () => {
