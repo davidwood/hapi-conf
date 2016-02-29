@@ -15,8 +15,8 @@ const dotenv = require('dotenv');
  * @param   {Object}          [options]   Optional options
  */
 module.exports = (server, validate, options) => {
-  if (!(server && _.isFunction(server.ext))) {
-    throw new TypeError('server.ext is not a function');
+  if (!(server && _.isFunction(server.method))) {
+    throw new TypeError('server.method is not a function');
   }
   let env = filterEnv(validate, options);
   if (options && !_.isNil(options.env)) {

@@ -36,12 +36,12 @@ describe('hapiConf(server, validate, [options])', () => {
     values.forEach((value) => {
       let error;
       try {
-        hapiConf({ ext: value });
+        hapiConf({ method: value });
       } catch (e) {
         error = e;
       }
       assert.strictEqual(error instanceof TypeError, true);
-      assert.strictEqual(error.message, 'server.ext is not a function');
+      assert.strictEqual(error.message, 'server.method is not a function');
     });
     values.push(NOOP);
     values.forEach((value) => {
@@ -52,7 +52,7 @@ describe('hapiConf(server, validate, [options])', () => {
         error = e;
       }
       assert.strictEqual(error instanceof TypeError, true);
-      assert.strictEqual(error.message, 'server.ext is not a function');
+      assert.strictEqual(error.message, 'server.method is not a function');
     });
   });
 
@@ -60,7 +60,7 @@ describe('hapiConf(server, validate, [options])', () => {
     [true, false, '', 123, new Date(), {}, [], null, undefined].forEach((value) => {
       let error;
       try {
-        hapiConf({ ext: NOOP, method: NOOP }, value);
+        hapiConf({ method: NOOP }, value);
       } catch (e) {
         error = e;
       }
@@ -85,14 +85,14 @@ describe('hapiConf(server, validate, [options])', () => {
       });
       done();
     };
-    hapiConf({ ext: NOOP, method }, /^test_/i);
+    hapiConf({ method }, /^test_/i);
   });
 
   it('should throw an error if the environment to load is not a string or buffer', () => {
     [true, false, 123, new Date(), {}, [], /test/i, NOOP].forEach((value) => {
       let error;
       try {
-        hapiConf({ ext: NOOP, method: NOOP }, /^test_/i, { env: value });
+        hapiConf({ method: NOOP }, /^test_/i, { env: value });
       } catch (e) {
         error = e;
       }
@@ -121,7 +121,7 @@ describe('hapiConf(server, validate, [options])', () => {
     };
     const env = fs.readFileSync(ENV_PATH, { encoding: 'utf8' });
     assert.strictEqual(typeof env, 'string');
-    hapiConf({ ext: NOOP, method }, /^test_/i, { env });
+    hapiConf({ method }, /^test_/i, { env });
   });
 
   it('should load an external environment as a buffer', (done) => {
@@ -144,7 +144,7 @@ describe('hapiConf(server, validate, [options])', () => {
     };
     const env = fs.readFileSync(ENV_PATH);
     assert.strictEqual(Buffer.isBuffer(env), true);
-    hapiConf({ ext: NOOP, method }, /^test_/i, { env });
+    hapiConf({ method }, /^test_/i, { env });
   });
 
   it('should ignore empty external environment definitions', (done) => {
@@ -163,7 +163,7 @@ describe('hapiConf(server, validate, [options])', () => {
       });
       done();
     };
-    hapiConf({ ext: NOOP, method }, /^test_/i, { env: '' });
+    hapiConf({ method }, /^test_/i, { env: '' });
   });
 
   it('should extend the environment if frozen option is set', (done) => {
@@ -202,7 +202,7 @@ describe('hapiConf(server, validate, [options])', () => {
     };
     const env = fs.readFileSync(ENV_PATH, { encoding: 'utf8' });
     assert.strictEqual(typeof env, 'string');
-    hapiConf({ ext: NOOP, method }, /^test_/i, { freeze: true, json: true, env });
+    hapiConf({ method }, /^test_/i, { freeze: true, json: true, env });
   });
 
   describe('.getConfig(key)', () => {
@@ -214,7 +214,7 @@ describe('hapiConf(server, validate, [options])', () => {
       };
       const pattern = /^test_/i;
       const format = (key) => _.camelCase(key.replace(pattern, ''));
-      hapiConf({ ext: NOOP, method }, pattern, { format });
+      hapiConf({ method }, pattern, { format });
     });
     it('should return undefined if the configuration value if not defined', (done) => {
       const method = (name, get) => {
@@ -222,7 +222,7 @@ describe('hapiConf(server, validate, [options])', () => {
         assert.strictEqual(get('stringValue'), undefined);
         done();
       };
-      hapiConf({ ext: NOOP, method }, /^test_/i);
+      hapiConf({ method }, /^test_/i);
     });
     it('should return undefined if the key is not a string', (done) => {
       const method = (name, get) => {
@@ -233,62 +233,7 @@ describe('hapiConf(server, validate, [options])', () => {
         });
         done();
       };
-      hapiConf({ ext: NOOP, method }, /^test_/i);
+      hapiConf({ method }, /^test_/i);
     });
   });
-  /*
-  it('should register an onPreResponse extension', () => {
-    const server = {
-      ext(type, method) {
-        assert.strictEqual(type, 'onPreResponse');
-        assert.strictEqual(util.isFunction(method), true);
-      },
-    };
-    setHeader(server, KEY, VALUE);
-  });
-
-  it('should set the response header', (done) => {
-    const request = {
-      response: {
-        header(key, value) {
-          assert.strictEqual(key, KEY);
-          assert.strictEqual(value, VALUE);
-        },
-      },
-    };
-    const reply = {
-      continue: done,
-    };
-    const server = {
-      ext(type, method) {
-        method(request, reply);
-      },
-    };
-    setHeader(server, KEY, VALUE);
-  });
-
-
-  it('should set the response header on a Boom response', (done) => {
-    const request = {
-      response: {
-        isBoom: true,
-        output: {
-          headers: {},
-        },
-      },
-    };
-    const reply = {
-      continue() {
-        assert.strictEqual(request.response.output.headers[KEY], VALUE);
-        done();
-      },
-    };
-    const server = {
-      ext(type, method) {
-        method(request, reply);
-      },
-    };
-    setHeader(server, KEY, VALUE);
-  });
-  */
 });
